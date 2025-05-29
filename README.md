@@ -67,7 +67,6 @@ This is a screenshot of the AI NewsBot email layout (dark mode):
 -	HTML email layout (light & dark themes)
 -	React frontend to configure preferences
 -	Browser extension version
--	Rich admin dashboard for scheduling/reporting
 -	Deploy on Google Cloud or serverless function
 
 ⸻
