@@ -1,83 +1,107 @@
-# ai-newsbot
-AI-powered News Digest Bot using Gemini, SerpAPI, and GNews
+# AI NewsBot: A Smarter, Secure News Digest in Your Inbox
 
-AI NewsBot is a personal AI-powered email digest system that fetches relevant news from multiple sources, summarizes them using Google Gemini AI, and delivers them in a visually optimized HTML email. Designed with customization and automation in mind, it’s built for users who want curated news on topics they care about — delivered straight to their inbox.
+**AI NewsBot** is an intelligent, personal news digest system built entirely on Google Apps Script. It fetches daily news from multiple sources, uses the Google Gemini API for advanced summarization and analysis, and delivers a beautiful, dark-themed digest directly to your email.
 
-⸻
+It's designed for users who want a secure, automated, and highly-curated news experience on the topics they care about, without the noise.
 
-🚀 Features
-- Multi-source news fetching: Uses SerpAPI and GNews API to fetch daily news.
-- AI summarization: Google Gemini 2.0 Flash API generates 3–4 bullet-point summaries per article.
-- Dark mode email layout: Responsive, beautiful HTML layout with image previews and category grouping.
-- Daily automation: Schedule delivery using Google Apps Script triggers.
-- Easy customization: Control topics, number of articles, and frequency.
+---
 
-⸻
+## 🚀 Features
 
-🧩 Tech Stack
+-   **Robust Multi-Source Fetching:** Primarily uses **NewsData.io** for fresh news and intelligently falls back to **GNews API** to ensure you never miss a beat.
+-   **Advanced AI Content Generation:** Goes beyond simple summaries. For each article, Google Gemini generates:
+    -   A concise **3-4 bullet-point summary**.
+    -   An insightful **Editor's Commentary** in italics.
+    -   A **Sentiment Analysis** badge (Positive, Negative, Neutral) for a quick emotional read.
+-   **Secure and Automated:**
+    -   **Zero Hardcoded Keys:** Uses Google Apps Script's `PropertiesService` to keep your API keys safe and out of the codebase.
+    -   **Fully Automated:** Schedule daily, weekly, or custom delivery using built-in Google Apps Script triggers.
+-   **Highly Precise Content Filtering:**
+    -   **Strictly "Yesterday's News":** Fetches and filters articles published *only* on the previous calendar day (UTC) for a true daily digest.
+    -   **Quality Control:** Ignores articles with insufficient content to ensure meaningful summaries.
+-   **Professionally Designed Dark Mode Email:**
+    -   A clean, mobile-friendly, and responsive HTML layout.
+    -   Intelligently handles missing images to avoid broken layouts.
 
-Component	Tech Used
+---
 
-- Scripting Engine	Google Apps Script (JavaScript)
-- AI Summarization	Google Gemini API
-- News Sources	SerpAPI, GNews API
-- Email Delivery	GmailApp (Google Workspace)
-- Deployment	Google Apps Script
-- Future Frontend	Planned with React
+## 🧩 Tech Stack
 
+| Component | Tech Used |
+| :--- | :--- |
+| **Scripting Engine** | Google Apps Script (JavaScript) |
+| **AI Generation** | Google Gemini API (gemini-1.5-flash) |
+| **News Sources** | NewsData.io API (Primary), GNews API (Fallback) |
+| **Secret Management** | Apps Script `PropertiesService` |
+| **Email Delivery** | GmailApp (Google Workspace) |
+| **Deployment** | Google Apps Script Platform |
 
-⸻
+---
 
-📦 Installation
+## 📦 Setup and Deployment (5 Minutes)
 
-1: Clone this Repository
+This project runs entirely on Google Apps Script, so no local environment or cloning is needed.
 
--    git clone https://github.com/Arpit4684/ai-newsbot.git
+#### Step 1: Create a New Apps Script Project
+1.  Go to [script.google.com](https://script.google.com) and click **New project**.
+2.  Give your project a name, like "AI NewsBot".
 
-2: Set up .env (example)
+#### Step 2: Paste the Code
+1.  Delete the default `function myFunction() {}` code in the editor.
+2.  Copy the entire content of the `ai_newsbot.gs` script file.
+3.  Paste it into the `Code.gs` file in your new Apps Script project.
+4.  Click the **Save project** (💾) icon.
 
-Create a .env.example file for reference:
+#### Step 3: Securely Store Your API Keys
+This project uses `PropertiesService` to keep your API keys secure. You must add them to the script's properties.
 
-- SERP_API_KEY=your-serpapi-key
-- GNEWS_API_KEY=your-gnews-key
-- GEMINI_API_KEY=your-gemini-key
+1.  In your Apps Script project, click the **Project Settings** (⚙️) icon on the left sidebar.
+2.  Scroll down to the **Script Properties** section and click **Add script property**.
+3.  Add the following three properties one by one. **The names must be exact.**
 
-3: Open Google Apps Script
-	-	Go to https://script.google.com
-	-	Paste contents of ai_newsbot_dark_theme.js
-	-	Replace placeholders with your real API keys
+| Property (Name) | Value |
+| :--- | :--- |
+| `NEWSDATA_API_KEY` | `your-newsdata.io-api-key` |
+| `GNEWS_API_KEY` | `your-gnews-api-key` |
+| `GEMINI_API_KEY` | `your-google-gemini-api-key` |
 
-4: Schedule It
-	-	Go to Triggers
-	-	Add Trigger → Choose sendNewsDigest
-	-	Set type to Time-based (e.g., daily at 9AM)
+4.  Click **Save script properties** after adding all three keys.
 
-⸻
+#### Step 4: Set Up the Automated Trigger
+1.  Click the **Triggers** (⏰) icon on the left sidebar.
+2.  Click **Add Trigger** in the bottom-right corner.
+3.  Configure the trigger with these settings:
+    -   **Choose which function to run:** `sendNewsDigest`
+    -   **Choose which deployment to run:** `Head`
+    -   **Select event source:** `Time-driven`
+    -   **Select type of time based trigger:** `Day timer`
+    -   **Select time of day:** `8am - 9am` (or your preferred time)
+4.  Click **Save**. You will be asked to authorize the script's permissions. **Accept them.** The script needs permission to fetch URLs and send an email to you.
 
-## 📷 Sample Output
+**That's it! Your AI NewsBot is now active and will deliver your first digest at the scheduled time.**
 
-This is a screenshot of the AI NewsBot email layout (dark mode):
+---
 
-<img src="https://github.com/user-attachments/assets/c85a3c64-a028-4643-be9f-ab42f480f5f1" width="260" />
+## 🛣️ Roadmap
 
+-   [✅] Secure API key management with `PropertiesService`
+-   [✅] News fetching from ~~SerpAPI~~ **NewsData.io** + GNews fallback
+-   [✅] Advanced Gemini AI summarization, commentary, and sentiment analysis
+-   [✅] Professional HTML email layout (dark theme)
+-   [⬜️] Add a "light theme" option, configurable via a script property.
+-   [⬜️] Build a simple React frontend to configure topics and settings.
+-   [⬜️] Package as a browser extension for even easier setup.
+-   [⬜️] Deploy on Google Cloud or a serverless function for more complex workflows.
 
-🛣️ Roadmap
--	News fetching from SerpAPI + GNews
--	Gemini AI summarization in bullet points
--	HTML email layout (light & dark themes)
--	React frontend to configure preferences
--	Browser extension version
--	Deploy on Google Cloud or serverless function
+---
 
-⸻
+## 🙋‍♂️ Author
 
-🙋‍♂️ Author
+**Arpit Singh**
+*Passionate about AI + Automation + UX Design*
 
-Arpit Singh
-Passionate about AI + Automation + UX Design
+---
 
-⸻
+## 📄 License
 
-📄 License
-
-MIT License — free to use and modify with credit.
+[MIT License](https://opensource.org/licenses/MIT) — free to use and modify. Please provide credit if you use it in your own projects.
