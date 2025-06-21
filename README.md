@@ -30,7 +30,7 @@ It's designed for users who want a secure, automated, and highly-curated news ex
 | Component | Tech Used |
 | :--- | :--- |
 | **Scripting Engine** | Google Apps Script (JavaScript) |
-| **AI Generation** | Google Gemini API (gemini-1.5-flash) |
+| **AI Generation** | Google Gemini API (gemini-2.5-flash) |
 | **News Sources** | NewsData.io API (Primary), GNews API (Fallback) |
 | **Secret Management** | Apps Script `PropertiesService` |
 | **Email Delivery** | GmailApp (Google Workspace) |
